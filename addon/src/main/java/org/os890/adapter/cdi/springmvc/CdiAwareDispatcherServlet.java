@@ -18,6 +18,7 @@
  */
 package org.os890.adapter.cdi.springmvc;
 
+import org.os890.ds.addon.spring.impl.SpringBridgeExtension;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.web.context.WebApplicationContext;
@@ -41,14 +42,21 @@ public class CdiAwareDispatcherServlet extends DispatcherServlet
         ConfigurableListableBeanFactory bridgeFactory = bridgeContext.getBeanFactory();
         BeanFactoryAwareBeanFactoryPostProcessor.currentBeanFactory.set(bridgeFactory);
 
+        WebApplicationContext result = null;
         try
         {
-            return createWebApplicationContext(null);
+            result = createWebApplicationContext(null);
+            return result;
         }
         finally
         {
             BeanFactoryAwareBeanFactoryPostProcessor.currentBeanFactory.set(null);
             BeanFactoryAwareBeanFactoryPostProcessor.currentBeanFactory.remove();
+
+            if (result instanceof ConfigurableApplicationContext)
+            {
+                SpringBridgeExtension.updateSpringContext((ConfigurableApplicationContext)result);
+            }
         }
     }
 }
