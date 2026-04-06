@@ -17,25 +17,24 @@
 
 package org.os890.adapter.cdi.springmvc;
 
-import org.springframework.web.context.support.XmlWebApplicationContext;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * Custom Spring {@link XmlWebApplicationContext} that registers a
- * {@link BeanFactoryAwareBeanFactoryPostProcessor} upon construction.
- *
- * <p>This post-processor copies CDI bridge bean definitions into the
- * DispatcherServlet-level Spring bean factory during context refresh.</p>
- *
- * @see BeanFactoryAwareBeanFactoryPostProcessor
- * @see CdiAwareDispatcherServlet#getContextClass()
+ * Tests for {@link CdiAwareDispatcherServlet}.
  */
-public class CustomXmlWebApplicationContext extends XmlWebApplicationContext
+class CdiAwareDispatcherServletTest
 {
     /**
-     * Creates a new context and registers the bridge post-processor.
+     * Verifies that the servlet returns
+     * {@link CustomXmlWebApplicationContext} as its context class.
      */
-    public CustomXmlWebApplicationContext()
+    @Test
+    void contextClassIsCustomXmlWebApplicationContext()
     {
-        addBeanFactoryPostProcessor(new BeanFactoryAwareBeanFactoryPostProcessor());
+        CdiAwareDispatcherServlet servlet = new CdiAwareDispatcherServlet();
+        assertEquals(CustomXmlWebApplicationContext.class, servlet.getContextClass(),
+                "Context class should be CustomXmlWebApplicationContext");
     }
 }

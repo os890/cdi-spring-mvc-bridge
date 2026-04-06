@@ -15,27 +15,21 @@
  * limitations under the License.
  */
 
-package org.os890.adapter.cdi.springmvc;
-
-import org.springframework.web.context.support.XmlWebApplicationContext;
+package org.os890.demo.cdi.springmvc;
 
 /**
- * Custom Spring {@link XmlWebApplicationContext} that registers a
- * {@link BeanFactoryAwareBeanFactoryPostProcessor} upon construction.
+ * Service contract for producing greeting messages.
  *
- * <p>This post-processor copies CDI bridge bean definitions into the
- * DispatcherServlet-level Spring bean factory during context refresh.</p>
- *
- * @see BeanFactoryAwareBeanFactoryPostProcessor
- * @see CdiAwareDispatcherServlet#getContextClass()
+ * <p>Implementations of this interface are CDI beans that the
+ * CDI-Spring bridge makes available to Spring MVC controllers.</p>
  */
-public class CustomXmlWebApplicationContext extends XmlWebApplicationContext
+public interface GreetingService
 {
     /**
-     * Creates a new context and registers the bridge post-processor.
+     * Creates a personalised greeting for the given name.
+     *
+     * @param name the name to greet (must not be {@code null})
+     * @return a greeting string
      */
-    public CustomXmlWebApplicationContext()
-    {
-        addBeanFactoryPostProcessor(new BeanFactoryAwareBeanFactoryPostProcessor());
-    }
+    String greet(String name);
 }

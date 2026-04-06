@@ -15,22 +15,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<web-fragment version="6.0"
-              xmlns="https://jakarta.ee/xml/ns/jakartaee"
-              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-              xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-fragment_6_0.xsd">
-
-    <name>cdi_spring_mvc</name>
-
-    <distributable/>
-
-    <listener>
-        <listener-class>org.os890.adapter.cdi.springmvc.ApplicationContextAwareWebappAwareSpringContainerManager</listener-class>
-    </listener>
-
-    <ordering>
-        <after>
-            <others/>
-        </after>
-    </ordering>
-</web-fragment>
+<beans version="4.1"
+       xmlns="https://jakarta.ee/xml/ns/jakartaee"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/beans_4_1.xsd"
+       bean-discovery-mode="annotated">
+</beans>
